@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Monthly Contest Calendar</title>
+
+<style>
+  body {
+    margin: 0;
+    background: #0b0f1a;
+    color: #e5e7eb;
+    font-family: Arial, sans-serif;
+  }
+
+  .calendar-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+  }
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+
+  .nav-btn {
+    padding: 6px 12px;
+    background: #020617;
+    border: 1px solid #1e293b;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border: 1px solid #1e293b;
+  }
+
+  .day-name {
+    padding: 10px;
+    text-align: center;
+    background: #020617;
+    border-bottom: 1px solid #1e293b;
+    font-weight: bold;
+  }
+
+  .day-cell {
+    min-height: 120px;
+    border: 1px solid #1e293b;
+    padding: 6px;
+    font-size: 13px;
+    position: relative;
+  }
+
+  .date {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    font-size: 12px;
+    color: #94a3b8;
+  }
+
+  .contest {
+    margin-top: 18px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 12px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+
+  .contest:hover {
+    transform: scale(1.03);
+    opacity: 0.9;
+  }
+
+  /* 🔵 Codeforces */
+  .cf {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    border: 1px solid #60a5fa;
+  }
+
+  /* 🟠 LeetCode */
+  .lc {
+    background: linear-gradient(135deg, #f97316, #c2410c);
+    border: 1px solid #fdba74;
+  }
+
+  /* 🟡 CodeChef */
+  .cc {
+    background: linear-gradient(135deg, #facc15, #ca8a04);
+    border: 1px solid #fde047;
+    color: #111;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="calendar-container">
+
+  <div class="calendar-header">
+    <button class="nav-btn" onclick="changeMonth(-1)">◀</button>
+    <div id="monthYear"></div>
+    <button class="nav-btn" onclick="changeMonth(1)">▶</button>
+  </div>
+
+  <div class="calendar-grid" id="dayNames"></div>
+  <div class="calendar-grid" id="calendar"></div>
+
+</div>
+
+<script>
+const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const dayNamesDiv = document.getElementById("dayNames");
+
+dayNames.forEach(d => {
+  const div = document.createElement("div");
+  div.className = "day-name";
+  div.innerText = d;
+  dayNamesDiv.appendChild(div);
+});
+
+let currentDate = new Date();
+let contestData = [];
+
+async function loadContests() {
+  try {
+    const res = await fetch("https://kontests.net/api/v1/all");
+    contestData = await res.json();
+    renderCalendar();
+  } catch (err) {
+    alert("Failed to load contests. Check your internet connection.");
+  }
+}
+
+function renderCalendar() {
+  const calendar = document.getElementById("calendar");
+  calendar.innerHTML = "";
+
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+
+  document.getElementById("monthYear").innerText =
+    currentDate.toLocaleString("default", { month: "long", year: "numeric" });
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  for (let i = 0; i < firstDay; i++) {
+    const blank = document.createElement("div");
+    blank.className = "day-cell";
+    calendar.appendChild(blank);
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const cell = document.createElement("div");
+    cell.className = "day-cell";
+
+    const dateLabel = document.createElement("div");
+    dateLabel.className = "date";
+    dateLabel.innerText = day;
+    cell.appendChild(dateLabel);
+
+    const todayStr = `${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+
+    contestData.forEach(c => {
+      const contestDate = c.start_time.slice(0,10);
+      if (contestDate === todayStr) {
+
+        let className = "";
+        if (c.site === "CodeForces") className = "contest cf";
+        else if (c.site === "LeetCode") className = "contest lc";
+        else if (c.site === "CodeChef") className = "contest cc";
+        else return;
+
+        const tag = document.createElement("div");
+        tag.className = className;
+        tag.innerHTML = `<a href="${c.url}" target="_blank">${c.name}</a>`;
+        cell.appendChild(tag);
+      }
+    });
+
+    calendar.appendChild(cell);
+  }
+}
+
+function changeMonth(step) {
+  currentDate.setMonth(currentDate.getMonth() + step);
+  renderCalendar();
+}
+
+loadContests();
+</script>
+
+</body>
+</html>
