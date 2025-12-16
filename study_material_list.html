@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Study Materials</title>
+    <link rel="stylesheet" href="{% static 'css/study_material.css' %}">
+</head>
+<body>
+
+<h2>📚 Study Materials</h2>
+
+{% if user.is_staff %}
+<a href="{% url 'upload_study_material' %}" class="btn">➕ Upload Material</a>
+{% endif %}
+
+<div class="material-container">
+    {% for material in materials %}
+    <div class="card">
+        <h3>{{ material.title }}</h3>
+        <p>{{ material.description }}</p>
+        <small>Uploaded by {{ material.uploaded_by.username }}</small><br>
+        <a href="{% url 'download_material' material.id %}" class="download-btn">⬇ Download</a>
+    </div>
+    {% empty %}
+    <p>No materials uploaded yet.</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>
