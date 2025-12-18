@@ -1,166 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Competitive Stats Dashboard</title>
-
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: white;
-    margin: 0;
-    padding: 0;
-}
-
-h1 {
-    text-align: center;
-    padding: 20px;
-    background: #020617;
-    margin: 0;
-    color: #38bdf8;
-}
-
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-}
-
-.card {
-    background: #020617;
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 25px;
-    box-shadow: 0 0 15px rgba(56,189,248,0.3);
-}
-
-.card h2 {
-    margin-top: 0;
-    border-bottom: 1px solid #38bdf8;
-    padding-bottom: 10px;
-}
-
-input {
-    width: 70%;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-}
-
-button {
-    padding: 10px 15px;
-    border-radius: 8px;
-    border: none;
-    background: #38bdf8;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.stat {
-    margin-top: 15px;
-    font-size: 18px;
-}
-
-.codeforces { color: #60a5fa; }
-.leetcode { color: #facc15; }
-.codechef { color: #f97316; }
-
-</style>
+  <meta charset="utf-8" />
+  <title>Competitive Buddy — Stats</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <div class="container">
+    <header class="topbar">
+      <h1>Competitive Buddy — Stats</h1>
 
-<h1>🔥 All-in-One Competitive Programming Stats 🔥</h1>
+      <div class="username-inputs">
+        <input id="cfHandle" value="Hardik_Bhochiya" />
+        <input id="lcHandle" value="H4rd_Code" />
+        <input id="ccHandle" value="hardik_032" />
+        <button id="fetchBtn">Fetch Stats</button>
+      </div>
+    </header>
 
-<div class="container">
+    <!-- ===================== CODEFORCES ===================== -->
+    <section class="card">
+      <h2>Codeforces</h2>
+      <div class="cf-top">
+        <div class="avatar" id="cfAvatar"></div>
 
-<!-- ================= CODEFORCES ================= -->
-<div class="card codeforces">
-    <h2>🥇 Codeforces</h2>
-    <input id="cfUser" placeholder="Enter Codeforces Handle">
-    <button onclick="getCF()">Get Stats</button>
+        <div class="cf-stats">
+          <div><strong id="cfName">—</strong> <span id="cfHandleDisplay"></span></div>
+          <div>Rating: <span id="cfRating">—</span> <span id="cfMaxRating"></span></div>
+          <div>Rank: <span id="cfRank">—</span> <span id="cfTier" class="tier">—</span></div>
+          <div>Contribution: <span id="cfContribution">—</span></div>
+        </div>
+      </div>
 
-    <div class="stat" id="cfRating"></div>
-    <div class="stat" id="cfRank"></div>
-    <div class="stat" id="cfMax"></div>
-</div>
+      <h3>Activity Heatmap</h3>
+      <div id="cfHeatmap" class="heatmap"></div>
+    </section>
 
-<!-- ================= LEETCODE ================= -->
-<div class="card leetcode">
-    <h2>🥈 LeetCode</h2>
-    <input id="lcUser" placeholder="Enter LeetCode Username">
-    <button onclick="getLC()">Get Stats</button>
+    <!-- ===================== LEETCODE ===================== -->
+    <section class="card">
+      <h2>LeetCode</h2>
 
-    <div class="stat" id="lcSolved"></div>
-    <div class="stat" id="lcEasy"></div>
-    <div class="stat" id="lcMedium"></div>
-    <div class="stat" id="lcHard"></div>
-</div>
+      <div>
+        <strong id="lcName">—</strong> <span id="lcHandleDisplay"></span><br>
+        Solved: <span id="lcSolvedTotal">—</span> (<span id="lcEasy">—</span> easy /
+        <span id="lcMedium">—</span> medium /
+        <span id="lcHard">—</span> hard)<br>
+        Acceptance: <span id="lcAcc">—</span><br>
+        Ranking: <span id="lcRank">—</span>
+      </div>
 
-<!-- ================= CODECHEF ================= -->
-<div class="card codechef">
-    <h2>🥉 CodeChef</h2>
-    <input id="ccUser" placeholder="Enter CodeChef Username">
-    <button onclick="getCC()">Get Stats</button>
+      <h3>Submission Heatmap</h3>
+      <div id="lcHeatmap" class="heatmap"></div>
+      <div id="lcInfo" class="note"></div>
+    </section>
 
-    <div class="stat" id="ccRating"></div>
-    <div class="stat" id="ccStars"></div>
-    <div class="stat" id="ccRank"></div>
-</div>
+    <!-- ===================== CODECHEF ===================== -->
+    <section class="card">
+      <h2>CodeChef</h2>
 
-</div>
+      <div>
+        <strong id="ccName">—</strong> <span id="ccHandleDisplay"></span><br>
+        Rating: <span id="ccRating">—</span> | Stars: <span id="ccStars">—</span><br>
+        Global Rank: <span id="ccGlobalRank">—</span> | Country Rank:
+        <span id="ccCountryRank">—</span>
+      </div>
 
-<script>
-/* ================= CODEFORCES ================= */
-async function getCF() {
-    const user = document.getElementById("cfUser").value;
-    const res = await fetch(`https://codeforces.com/api/user.info?handles=${user}`);
-    const data = await res.json();
+      <h3>Activity Heatmap</h3>
+      <div id="ccHeatmap" class="heatmap"></div>
+      <div id="ccInfo" class="note"></div>
+    </section>
 
-    if (data.status === "OK") {
-        const u = data.result[0];
-        document.getElementById("cfRating").innerText = "Rating: " + u.rating;
-        document.getElementById("cfRank").innerText = "Rank: " + u.rank;
-        document.getElementById("cfMax").innerText = "Max Rating: " + u.maxRating;
-    } else {
-        alert("Invalid Codeforces Handle!");
-    }
-}
+  </div>
 
-/* ================= LEETCODE ================= */
-async function getLC() {
-    const user = document.getElementById("lcUser").value;
-    const res = await fetch(`https://leetcode-stats-api.herokuapp.com/${user}`);
-    const data = await res.json();
-
-    if (data.status !== "error") {
-        document.getElementById("lcSolved").innerText = "Solved: " + data.totalSolved;
-        document.getElementById("lcEasy").innerText = "Easy: " + data.easySolved;
-        document.getElementById("lcMedium").innerText = "Medium: " + data.mediumSolved;
-        document.getElementById("lcHard").innerText = "Hard: " + data.hardSolved;
-    } else {
-        alert("Invalid LeetCode Username!");
-    }
-}
-
-/* ================= CODECHEF ================= */
-async function getCC() {
-    const user = document.getElementById("ccUser").value;
-    const res = await fetch(`https://codechef-api.vercel.app/handle/${user}`);
-    const data = await res.json();
-
-    if (!data.success) {
-        alert("Invalid CodeChef Username!");
-        return;
-    }
-
-    document.getElementById("ccRating").innerText = "Rating: " + data.rating;
-    document.getElementById("ccStars").innerText = "Stars: " + data.stars;
-    document.getElementById("ccRank").innerText = "Global Rank: " + data.global_rank;
-}
-</script>
-
+  <script src="stats.js"></script>
 </body>
 </html>

@@ -1,147 +1,113 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>My Profile</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Competitive Buddy — Profile</title>
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0f172a, #020617);
-    color: white;
-}
-
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-}
-
-/* ================= HEADER ================= */
-.profile-header {
-    background: #020617;
-    border-radius: 20px;
-    padding: 30px;
-    text-align: center;
-    box-shadow: 0 0 20px rgba(56,189,248,0.4);
-}
-
-.profile-img {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    border: 3px solid #38bdf8;
-    object-fit: cover;
-}
-
-.profile-header h1 {
-    margin: 15px 0 5px;
-    color: #38bdf8;
-}
-
-.profile-header p {
-    color: #cbd5f5;
-    font-size: 18px;
-}
-
-/* ================= SECTIONS ================= */
-.section {
-    background: #020617;
-    margin-top: 25px;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(56,189,248,0.15);
-}
-
-.section h2 {
-    color: #38bdf8;
-    border-bottom: 1px solid #38bdf8;
-    padding-bottom: 10px;
-}
-
-.info p {
-    font-size: 17px;
-    line-height: 1.6;
-}
-
-/* ================= SKILLS ================= */
-.skills span {
-    background: #38bdf8;
-    color: #020617;
-    padding: 8px 14px;
-    margin: 6px;
-    display: inline-block;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-/* ================= SOCIAL LINKS ================= */
-.social a {
-    display: inline-block;
-    margin-right: 15px;
-    margin-top: 10px;
-    color: #38bdf8;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.social a:hover {
-    text-decoration: underline;
-}
-</style>
+<link rel="stylesheet" href="profile.css" />
 </head>
 
 <body>
+<main class="page">
 
-<div class="container">
+<header class="hero">
 
-    <!-- ================= PROFILE HEADER ================= -->
-    <div class="profile-header">
-        <img src="https://via.placeholder.com/130" class="profile-img">
-        <h1>Hardik</h1>
-        <p>Computer Science Student | Competitive Programmer</p>
-    </div>
+    <!-- LEFT SIDE -->
+    <div class="hero-left">
+        <div class="avatar" id="pfAvatar"></div>
 
-    <!-- ================= ABOUT ================= -->
-    <div class="section info">
-        <h2>About Me</h2>
-        <p>
-            I am a Computer Science student passionate about Data Structures, 
-            Algorithms, and Competitive Programming. I actively practice on 
-            Codeforces, LeetCode, and CodeChef. My goal is to become a 
-            strong problem solver and skilled software engineer.
+        <h1 id="pfName">Hardik Bhochiya</h1>
+
+        <p id="pfBio">
+            Student · Competitive programmer · Building Competitive Buddy
         </p>
+
+        <div class="handles">
+            <span class="handle">CF: <b id="pfCFHandle">Hardik_Bhochiya</b></span>
+            <span class="handle">LC: <b id="pfLCHandle">H4rd_Code</b></span>
+            <span class="handle">CC: <b id="pfCCHandle">hardik_032</b></span>
+        </div>
+
+        <div class="socials" id="pfSocials"></div>
     </div>
 
-    <!-- ================= SKILLS ================= -->
-    <div class="section skills">
-        <h2>Skills</h2>
-        <span>C</span>
-        <span>C++</span>
-        <span>Java</span>
-        <span>Python</span>
-        <span>HTML</span>
-        <span>CSS</span>
-        <span>JavaScript</span>
-        <span>DSA</span>
+    <!-- RIGHT SIDE -->
+    <div class="hero-right">
+
+        <div class="highlights card">
+            <h3>Competitive Highlights</h3>
+
+            <div class="grid-2">
+
+                <div class="stat">
+                    <div class="label">Codeforces</div>
+                    <div class="value" id="pfCFRating">—</div>
+                    <div class="sub" id="pfCFTier">—</div>
+                </div>
+
+                <div class="stat">
+                    <div class="label">LeetCode</div>
+                    <div class="value" id="pfLCSolved">—</div>
+                    <div class="sub" id="pfLCRank">—</div>
+                </div>
+
+                <div class="stat">
+                    <div class="label">CodeChef</div>
+                    <div class="value" id="pfCCRating">—</div>
+                    <div class="sub" id="pfCCStars">—</div>
+                </div>
+
+                <div class="stat">
+                    <div class="label">Solved (total)</div>
+                    <div class="value" id="pfSolvedTotal">—</div>
+                    <div class="sub" id="pfSolvedBreakdown">easy / med / hard</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="badges card" id="pfBadges">
+            <h3>Badges & Achievements</h3>
+            <div class="badges-row"></div>
+        </div>
+
     </div>
 
-    <!-- ================= EDUCATION ================= -->
-    <div class="section info">
-        <h2>Education</h2>
-        <p>🎓 Diploma / Degree in Computer Science Engineering</p>
+</header>
+
+
+<!-- FUTURE CONTENT SECTIONS -->
+<section class="content">
+
+    <!-- Heatmaps -->
+    <div class="card">
+        <h3>Codeforces Activity</h3>
+        <div class="heatmap" id="pfCFHeatmap"></div>
     </div>
 
-    <!-- ================= CONTACT ================= -->
-    <div class="section info social">
-        <h2>Contact</h2>
-        <a href="https://github.com/" target="_blank">GitHub</a>
-        <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
-        <a href="#">Email</a>
+    <div class="card">
+        <h3>LeetCode Submissions</h3>
+        <div class="heatmap" id="pfLCHeatmap"></div>
     </div>
 
-</div>
+    <div class="card">
+        <h3>CodeChef Activity</h3>
+        <div class="heatmap" id="pfCCHeatmap"></div>
+    </div>
+
+    <!-- Recent -->
+    <div class="card">
+        <h3>Recent Activity</h3>
+        <ul id="pfRecent"></ul>
+    </div>
+
+</section>
+
+</main>
+
+<!-- IMPORTANT: JS MUST LOAD LAST -->
+<script src="profile.js"></script>
 
 </body>
 </html>

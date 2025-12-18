@@ -1,0 +1,27 @@
+{
+  "name": "competitive-buddy",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "🚀 Competitive Buddy",
+  "main": "proxy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hardik-Bhochiya/Competitive-Buddy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hardik-Bhochiya/Competitive-Buddy/issues"
+  },
+  "homepage": "https://github.com/Hardik-Bhochiya/Competitive-Buddy#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {}
+}
