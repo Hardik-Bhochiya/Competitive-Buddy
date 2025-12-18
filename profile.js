@@ -7,7 +7,7 @@ const $ = id => document.getElementById(id);
 
 // Handles
 const CF_HANDLE = 'Hardik_Bhochiya';
-const LC_HANDLE = 'H4rd_Code';
+const LC_HANDLE = 'Hardik_032';
 const CC_HANDLE = 'hardik_032';
 
 // DOM references
