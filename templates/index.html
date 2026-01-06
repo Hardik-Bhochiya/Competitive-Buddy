@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Competitive Buddy{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/index.css">
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <h1>Track. Compete. Improve.</h1>
+    <p>Your complete competitive programming companion.</p>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <h3>📊 Unified Stats</h3>
+        <p>All your Codeforces, LeetCode & CodeChef data in one place.</p>
+    </div>
+
+    <div class="feature-card">
+        <h3>🏆 Contest Tracker</h3>
+        <p>Never miss a contest with smart alerts & live tracking.</p>
+    </div>
+
+    <div class="feature-card">
+        <h3>🤖 AI Mentor</h3>
+        <p>Ask doubts, debug errors, learn concepts instantly.</p>
+    </div>
+</section>
+
+{% endblock %}

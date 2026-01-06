@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}AI Mentor | Competitive Buddy{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/mentor.css">
+{% endblock %}
+
+{% block content %}
+<h2 class="page-title">AI Mentor — Ask Your Doubts</h2>
+
+<div class="chat-box">
+    <div class="msg user">How to optimize Dijkstra?</div>
+    <div class="msg ai">You can use a priority queue to reduce complexity to O(E log V).</div>
+</div>
+
+<div class="chat-input">
+    <input type="text" placeholder="Type your doubt...">
+    <button>Ask</button>
+</div>
+{% endblock %}
+{% block js %}
+<script src="/static/js/mentor.js"></script>
+{% endblock %}

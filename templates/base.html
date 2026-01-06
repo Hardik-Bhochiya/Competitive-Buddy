@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Competitive Buddy{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">Competitive Buddy</div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/profile">Profile</a>
+        <a href="/stats">Stats</a>
+        <a href="/contest">Contests</a>
+        <a href="/mentor">Mentor</a>
+        <a href="/login">Login</a>
+    </div>
+</nav>
+
+<main class="main-container">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+    © 2026 Competitive Buddy. All rights reserved.
+</footer>
+
+{% block js %}{% endblock %}
+</body>
+</html>

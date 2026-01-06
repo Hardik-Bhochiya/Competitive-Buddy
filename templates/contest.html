@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Contests | Competitive Buddy{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/contest.css">
+{% endblock %}
+
+{% block content %}
+<h2 class="page-title">Upcoming Contests</h2>
+
+<div class="contest-list">
+    <div class="contest-card">
+        <h3>Codeforces Round</h3>
+        <p>Starts in 23 hours</p>
+        <span class="tag soon">Soon</span>
+    </div>
+
+    <div class="contest-card">
+        <h3>LeetCode Weekly</h3>
+        <p>Live Now</p>
+        <span class="tag live">Live</span>
+    </div>
+
+    <div class="contest-card">
+        <h3>CodeChef Starters</h3>
+        <p>Starts in 4 days</p>
+        <span class="tag later">Upcoming</span>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="/static/js/contest.js"></script>
+{% endblock %}

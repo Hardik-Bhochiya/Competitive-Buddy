@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Profile | Competitive Buddy{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/profile.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-card">
+    <h2>Your Profile</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="field">
+            <label>Codeforces Handle</label>
+            <input type="text" name="cf" value="{{ profile.cf_handle }}" placeholder="Enter Codeforces handle">
+        </div>
+
+        <div class="field">
+            <label>LeetCode Handle</label>
+            <input type="text" name="lc" value="{{ profile.lc_handle }}" placeholder="Enter LeetCode handle">
+        </div>
+
+        <div class="field">
+            <label>CodeChef Handle</label>
+            <input type="text" name="cc" value="{{ profile.cc_handle }}" placeholder="Enter CodeChef handle">
+        </div>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+
+{% endblock %}

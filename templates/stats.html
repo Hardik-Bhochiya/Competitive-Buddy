@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Stats | Competitive Buddy{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/stats.css">
+{% endblock %}
+
+{% block content %}
+<h2 class="page-title">Competitive Statistics</h2>
+
+<div class="stats-grid">
+    <div class="stat-box">Codeforces Data</div>
+    <div class="stat-box">LeetCode Data</div>
+    <div class="stat-box">CodeChef Data</div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="/static/js/stats.js"></script>
+{% endblock %}

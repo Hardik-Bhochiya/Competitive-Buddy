@@ -1,0 +1,21 @@
+.hero {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.hero h1 {
+    font-size: 36px;
+    color: #38bdf8;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.feature-card {
+    background: #020617;
+    padding: 24px;
+    border-radius: 12px;
+}
