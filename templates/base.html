@@ -1,33 +1,47 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Competitive Buddy{% endblock %}</title>
-    <link rel="stylesheet" href="/static/css/base.css">
-    {% block css %}{% endblock %}
+    <title>Competitive Buddy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 </head>
+
 <body>
 
-<nav class="navbar">
-    <div class="logo">Competitive Buddy</div>
-    <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/profile">Profile</a>
-        <a href="/stats">Stats</a>
-        <a href="/contest">Contests</a>
-        <a href="/mentor">Mentor</a>
-        <a href="/login">Login</a>
-    </div>
-</nav>
+{% if request.path != '/login/' and request.path != '/signup/' %}
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            🚀 Competitive Buddy
+        </div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/profile/">Profile</a></li>
+            <li><a href="/stats/">Stats</a></li>
+            <li><a href="/contests/">Contests</a></li>
 
-<main class="main-container">
+            {% if user.is_authenticated %}
+                <li><a href="/logout/">Logout</a></li>
+            {% else %}
+                <li><a href="/login/">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+{% endif %}
+
+<main>
     {% block content %}{% endblock %}
 </main>
 
+{% if request.path != '/login/' and request.path != '/signup/' %}
 <footer class="footer">
-    © 2026 Competitive Buddy. All rights reserved.
+    © 2024 Competitive Buddy. All rights reserved.
 </footer>
+{% endif %}
 
-{% block js %}{% endblock %}
 </body>
 </html>

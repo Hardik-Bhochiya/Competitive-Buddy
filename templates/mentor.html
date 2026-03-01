@@ -1,23 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}AI Mentor | Competitive Buddy{% endblock %}
-{% block css %}
-<link rel="stylesheet" href="/static/css/mentor.css">
-{% endblock %}
-
 {% block content %}
-<h2 class="page-title">AI Mentor — Ask Your Doubts</h2>
+<h2>AI Mentor</h2>
 
-<div class="chat-box">
-    <div class="msg user">How to optimize Dijkstra?</div>
-    <div class="msg ai">You can use a priority queue to reduce complexity to O(E log V).</div>
-</div>
+<form method="POST">
+    {% csrf_token %}
+    <textarea name="question" rows="4" cols="50" placeholder="Ask your competitive programming doubt..."></textarea>
+    <br>
+    <button type="submit">Ask</button>
+</form>
 
-<div class="chat-input">
-    <input type="text" placeholder="Type your doubt...">
-    <button>Ask</button>
-</div>
-{% endblock %}
-{% block js %}
-<script src="/static/js/mentor.js"></script>
+{% if response %}
+    <h3>Answer:</h3>
+    <p>{{ response }}</p>
+{% endif %}
+
 {% endblock %}
